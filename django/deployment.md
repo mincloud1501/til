@@ -44,6 +44,7 @@ $ sudo pip install uwsgi
 
 ```
 upstream django {
+    # Unix 소켓과 IP 소켓 방식 모두 사용 가능하지만, Unix 소켓 방식이 당연히 더 빠르다
     server unix:///var/run/myapp.sock;
 }
 
@@ -52,10 +53,12 @@ server {
     server_name my.site.com;
     charset utf-8;
 
+    # Media data는 WSGI에 요청하는 대신 직접 전달하도록 한다.
     location /media {
         alias /path/to/mysite/media;
     }
 
+    # Static data(js,css,images)는 WSGI에 요청하는 대신 직접 웹서버에서 전달한다
     localtion /static {
         alias /path/to/mysite/static;
     }
