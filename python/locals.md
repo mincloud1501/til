@@ -26,12 +26,21 @@ def test_locals_in_function_scope():
     age = 34
     print("My name is %(name)s I'm %(age)d years old" % locals())
 
+def test_locals_with_parameters(name, age):
+    print("My name is %(name)s I'm %(age)d years old" % locals())
+
 class Person():
     def __init__(self, name, age):
         self.name = name
         self.age = age
+
+    def __init__(self):
+        self.name = None
+        self.age = None
+
     def test_locals_in_method(self):
         print("My name is %(name)s I'm %(age)d years old" % locals())
+
     def test_locals_with_local_vars_in_method(self):
         name = "Eunwoo"
         age = 2
@@ -39,7 +48,9 @@ class Person():
 
 if __name__ == "__main__":
     test_locals_in_function_scope()
-    eunwoo = Person(None, None)
+    test_locals_with_paremeters("Sungeun", 34)
+
+    eunwoo = Person()
     eunwoo.test_locals_with_local_vars_in_method()
 
     jiyul = Person(name = "Jiyul", age = 4)
@@ -49,6 +60,7 @@ if __name__ == "__main__":
 출력 결과
 ```
 My name is Jihoon I'm 34 years old
+My name is Sungeun I'm 34 years old
 My name is Eunwoo I'm 2 years old
 Traceback (most recent call last):
   File "locals-example.py", line 24, in <module>
