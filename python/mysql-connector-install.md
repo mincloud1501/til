@@ -16,10 +16,10 @@ $ easy_install mysql-connector-python
 ```python
 #!/usr/bin/python
 
-import MySQLdb
+import mysql.connector
 
 # Open database connection
-db = MySQLdb.connect("<address>","<account>","<password>","testdb" )
+conn = mysql.connector.connect(host="<address>", user="<account>", password="<password>", database="testdb")
 
 # prepare a cursor object using cursor() method
 cursor = db.cursor()
@@ -32,7 +32,12 @@ data = cursor.fetchone()
 
 print "Database version : %s " % data
 
+# Close cursor
+cursor.close()
+
 # disconnect from server
 db.close()
 ```
 
+## Reference
+* https://dev.mysql.com/doc/connector-python/en/
