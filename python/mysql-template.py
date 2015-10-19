@@ -2,26 +2,54 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
+from contextlib import * 
 
 class ResultCallback():
     def handle(self, cursor):
         raise NotImplementedError()
 
-def execute_query(db_name, query, callback):
-    dbconfig = get_dbconfig(db_name)
-    conn = mysql.connector.connect(**dbconfig)
-
-    cursor = conn.cursor()
-    cursor.execute(query)
-
-    if callback != None:
-        callback.handle(cursor)
+def execute_query(query, args=(), cb=None, conn = None, dbconfig = None):
+    if conn != None:
+        execute(query, args, cb, conn)
+    elif dbconfig != None:
+        execute_atomic(query, args, cb, dbconfig)
     else:
-        # throw out remaining results
+        raise RuntimeError('At least one of conn or dbconfig should be specified')
+
+def execute(query, args, cb, conn):
+    __executeQuery(query, args, cb, conn)
+
+def execute_atomic(query, args, cb, dbconfig):
+    with closing(mysql.connector.connect(**dbconfig)):
+        conn.autocommit = True
+        __executeQuery(query, args, cb, conn)
+
+def __execute_query(query, args, cb, conn):
+    cursor = conn.cursor()
+    cursor.execute(query, args)
+
+    if cb != None:
+        cb.handle(cursor)
+    else:
         cursor.fetchall()
 
     cursor.close()
-    conn.close()
+
+@contextmanager
+def transaction(dbconfig):
+    conn = mysql.connector.connect(**dbconfig)
+    _org = conn.autocommit = False
+
+    conn.autocommit = False
+
+    try:
+        yield conn
+        conn.commit()
+    except:
+        conn.rollback()
+    finally:
+        conn.autocommit = _org
+        conn.close()
 
 def get_dbconfig(db_name):
     # FIXME:
@@ -39,9 +67,8 @@ if __name__ == "__main__":
             self.result = cursor.fetchall()
 
     query = "select * from user"
-    db_name = "mysql"
     callback = UserResultCallback()
-    execute_query(db_name, query, callback)
+    execute_query(query, cb=callback, dbconfig=get_dbconfig("mysql"))
 
     print "result: %s" % callback.result
 
