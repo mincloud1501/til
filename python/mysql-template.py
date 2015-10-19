@@ -17,23 +17,21 @@ def execute_query(query, args=(), cb=None, conn = None, dbconfig = None):
         raise RuntimeError('At least one of conn or dbconfig should be specified')
 
 def execute(query, args, cb, conn):
-    __executeQuery(query, args, cb, conn)
+    __execute_query(query, args, cb, conn)
 
 def execute_atomic(query, args, cb, dbconfig):
-    with closing(mysql.connector.connect(**dbconfig)):
+    with closing(mysql.connector.connect(**dbconfig)) as conn:
         conn.autocommit = True
-        __executeQuery(query, args, cb, conn)
+        __execute_query(query, args, cb, conn)
 
 def __execute_query(query, args, cb, conn):
-    cursor = conn.cursor()
-    cursor.execute(query, args)
+    with closing(conn.cursor()) as cursor:
+        cursor.execute(query, args)
 
-    if cb != None:
-        cb.handle(cursor)
-    else:
-        cursor.fetchall()
-
-    cursor.close()
+        if cb != None:
+            cb.handle(cursor)
+        else:
+            cursor.fetchall()
 
 @contextmanager
 def transaction(dbconfig):
