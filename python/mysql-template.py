@@ -36,7 +36,7 @@ def __execute_query(query, args, cb, conn):
 @contextmanager
 def transaction(dbconfig):
     conn = mysql.connector.connect(**dbconfig)
-    _org = conn.autocommit = False
+    _org = conn.autocommit
 
     conn.autocommit = False
 
