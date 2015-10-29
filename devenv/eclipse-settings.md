@@ -1,8 +1,6 @@
 Eclipse Tips
 ====
 
-[TOC]
-
 ## Preferences
 
 ### 자주 사용하는 static import 설정하기
