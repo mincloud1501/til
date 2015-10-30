@@ -5,7 +5,7 @@ Visual Studio Shortcuts
 
 `F12` : 현재 커서 위치의 심볼의 선언부로 이동
 
-`Ctrl + K, Ctrl + K` : Call hierarchy 보기
+`Ctrl + K, Ctrl + T` : Call hierarchy 보기
 
 `Ctrl + -` : 이전 위치로 이동
 
@@ -17,4 +17,6 @@ Visual Studio Shortcuts
 
 `Ctrl + F2, Tab, Tab` : 현재 Class의 심볼 리스트 팝업
 
+`Ctrl + K, Ctrl + C` : 현재 라인을 주석 처리
 
+`Ctrl + K, Ctrl + U` : 현재 라인의 주석 해제
