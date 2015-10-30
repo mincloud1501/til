@@ -1,5 +1,5 @@
 Eclipse Tips
-====
+------
 
 ## Preferences
 
