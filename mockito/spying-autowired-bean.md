@@ -1,4 +1,4 @@
-AnnotationConfigContextLoader를 사용하여 Autowired되는 bean을 spying 하기
+Mockito with Spring - Autowired되는 bean을 spying 하기
 ------
 
 ### 모든 테스트의 시나리오에 대해서 Stub을 만들기는 지쳐요
@@ -101,6 +101,10 @@ static class로 만들어 두면 높은 우선 순위를 갖는 것 으로 추�
 
 Finally! 어마무시한 스텁 작성으로 부터 어느 정도 자유로워 질 수 있게 되었다.
 
+### References
+
+* http://lkrnac.net/blog/2014/12/mock-spring-bean/
+* https://spring.io/blog/2011/06/21/spring-3-1-m2-testing-with-configuration-classes-and-profiles
 
 
 
