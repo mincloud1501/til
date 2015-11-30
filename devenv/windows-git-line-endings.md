@@ -3,6 +3,8 @@
 ##### msys-git 설치 시 Line endings 를 아래와 같이 설정
 > 'Checkout as-is, commit as-is' 
 
+&nbsp;
+
 ##### diff시 ^M를 안보이게 하기 위해 아래와 같이 config 추가
 
 ```bash
