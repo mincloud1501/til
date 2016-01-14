@@ -13,6 +13,8 @@
 나는 그냥 이 원칙은 단순하게 생각한다. 바로 '관심사의 분리' 이다.
 너무 많은 것을 신경써야 하는 클래스 디자인을 피하고, 되도록 하나의 역할 만 수행하도록 하는 것이다.
 
+> 어떤 클래스나 모듈은 변경하려는 이유(책임)는 하나 뿐이어야 한다
+
 #### 2. OCP - Open Closed Princible
 
 > You should be able to extend a classes behavior, without modifying it
@@ -27,6 +29,8 @@
 Oracle, MySQL, MS SQL등 JDBC를 구현한 jdbc connector를 사용하면, db를 교체할 수
 있는 것을 생각하면 될 것 같다.
 
+> 소프트웨어 단위 요소는 확장에는 개방적이어야 하고, 변경에는 폐쇄적이어야 한다.
+
 #### 3. LSP - Liskov Subtitution Priciple
 
 > Functions that use pointers or references to base classes must be able to
@@ -35,6 +39,7 @@ Oracle, MySQL, MS SQL등 JDBC를 구현한 jdbc connector를 사용하면, db를
 이건 기반 클래스와 서브 클래스 간에 is kind of.. 의 원칙을 잘 지키라는 뜻으로 이해 했다.
 기반 클래스에서 하위 클래스에 대해 알지 못하더라고, 메소드를 호출했을 때 문제 없이 동작해야 한다.
 
+> 프로그램의 객체는 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 치화될 수 있어야 한다.
 
 #### 4. ISP - Interface Segregation Principle
 
@@ -44,6 +49,8 @@ Oracle, MySQL, MS SQL등 JDBC를 구현한 jdbc connector를 사용하면, db를
 클래스를 사용하는 클라이언트가, 사용하지 않는 인터페이스에 대해서 까지 종속적이어선 안된다.
 즉, 클라이언트가 필요한 부분만 인터페이스하여 노출시키라는 것이다.
 
+> 특정 클라이언트를 위한 인터페이스 여러개가 범용 인터페이스 하나보다 낫다
+
 #### 5. DIP - Dependancy Inversion Principle
 
 > A. High level modules should not depend upon low level modules.
@@ -52,3 +59,8 @@ Oracle, MySQL, MS SQL등 JDBC를 구현한 jdbc connector를 사용하면, db를
 >    Details should depend upon abstrations
 
 스프링의 IoC, DI 컨셉이 여기에 해당한다.
+
+> 구상에 의존하지 말고 추상에 의존해라
+
+#### Reference
+* http://www.slideshare.net/gyumee/ss-47343256?related=1
