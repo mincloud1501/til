@@ -25,4 +25,4 @@
 
 ### 참조
 
-* * https://vietstack.wordpress.com/2014/10/03/introduction-of-virtualization/
+* [Vietstack - Introduction of virtualization](https://vietstack.wordpress.com/2014/10/03/introduction-of-virtualization/)
