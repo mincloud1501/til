@@ -6,14 +6,17 @@ EC2 인스턴스의 Timezone 변경
 
 1. `/usr/share/zoneinfo` 디렉토리 내에서 적절한 지역에 해당하는 파일을 찾는다. 우리나라의 경우는 `/usr/share/zoneinfo/Asia/Seoul` 이다.
 2. `/etc/sysconfig` 를 열어서 아래와 같이 수정한다.
-```
-ZONE="Asia/Seoul"
-UTC=false
-```
+
+    ```
+    ZONE="Asia/Seoul"
+    UTC=false
+    ```
+
 3. /etc/localtime 파일을 1.에서 찾은 파일에 대한 심볼릭 링크로 만들어 준다.
-```
-$ ln -sf /etc/localtime /usr/share/zoneinfo/Asia/Seoul
-```
+
+    ```
+    $ ln -sf /etc/localtime /usr/share/zoneinfo/Asia/Seoul
+    ```
  
 
 Chef DSL
