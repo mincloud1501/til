@@ -1,4 +1,6 @@
-# Using firewalld
+Using firewalld
+---
+
 Date: 2015-10-09
 
 centos7 기반에 nginx를 직접 빌드해서 사용하는 형태로 서버 구성을 하고 있는데, yum으로 설치 했을 때와는 다르게 잘 동작하지 않는 문제가 발생하였다.
@@ -16,14 +18,15 @@ iptables로 80번에 대한 요청을 ACCEPT 하는 룰을 추가하니 nginx가
 > https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html
 
 
-## Essentials
+Essentials
+---
 * Redhat 계열 Linux에는 default로 설치 된다.
 * iptables(service layer)를 대체한다.
 * firewall-config 라는 gui를 가진 tool도 있다.
 * firewall-cmd라는 command line tool도 제공한다.
 
-## Usage
-
+Usage
+---
 http(tcp/80) 요청을 허용하는 방법은 아래와 같다.
 ```bash
 $ firewall-cmd --permanent --zone=public --add-port=80/tcp
