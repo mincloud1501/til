@@ -14,7 +14,7 @@ EC2 인스턴스의 Timezone 변경
 
 3. /etc/localtime 파일을 1.에서 찾은 파일에 대한 심볼릭 링크로 만들어 준다.
 
-    ```
+    ```bash
     $ ln -sf /etc/localtime /usr/share/zoneinfo/Asia/Seoul
     ```
  
@@ -24,7 +24,7 @@ Chef DSL
 
 위 내용을 Chef DSL code로 표현하면 아래와 같다.
 
-```
+```ruby
 # Change timezone to 'Asia/Seoul'
 file '/etc/sysconfig/clock' do
     content <<-EOF
