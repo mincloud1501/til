@@ -1,12 +1,15 @@
-# NETCONF(Network Configuration Protocol)
+NETCONF(Network Configuration Protocol)
+---
 
 ### Overview
+
 * 네트워크 관리 프로토콜
 * 네트워크 장비들의 설치, 운용, 제거를 위한 방법을 제공한다.
 * 간단한 RPC를 통해서 수행 됨
 * XML base
 
 NETCONF protocol은 개념적으로 4개의 레이어로 나누어짐.
+
 1. Content Layer - Configuration과 Notification data로 구성.
 2. Operations Layer - Configuration data를 가져오고 설정하기 위한 기본 프로토콜 명령을 정의
 3. Message Layer - RPC call과 Notiication의 Encoding mechanism을 제공
@@ -33,12 +36,11 @@ NETCONF protocol은 개념적으로 4개의 레이어로 나누어짐.
 
 #### 3. Message
 
-* `<rpc>` - RPC 호출
-* `<rpc-result>` - RCP 호출에 대한 결과
-* `<notification>` - 이벤트 알림
-
-* 모든 메시지는 Well-formed XML
-* Pipelining 가능 - 다음 메시지 전달을 위해 이전 메시지의 결과를 기다릴 필요 없음.
+- `<rpc>` - RPC 호출
+- `<rpc-result>` - RCP 호출에 대한 결과
+- `<notification>` - 이벤트 알림
+- 모든 메시지는 Well-formed XML
+- Pipelining 가능 - 다음 메시지 전달을 위해 이전 메시지의 결과를 기다릴 필요 없음.
 
 #### 4. Secure Transport
 
