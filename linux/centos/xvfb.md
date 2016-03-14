@@ -26,6 +26,20 @@ $ /usr/bin/Xvfb :1 -screen 0 1920x1080x24 &
 $ export DISPLAY=:1
 ```
 
+아래와 같이 systemd service로 등록해서 사용할 수도 있다.
+
+```
+[Unit]
+Description=Virtual Frame Buffer X Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/Xvfb :99 -screen 0 1024x768x24
+
+[Install]
+WantedBy=multi-user.target
+```
+
 Reference
 ---
 
