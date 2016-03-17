@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+
+  config.vm.network "private_network", ip: "192.168.33.101"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "4096"
+    vb.customize ["modifyvm", :id, "--cpus", "4"]
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https ca-certificates
+    sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+    sudo echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list
+    sudo apt-get update
+    sudo apt-get purge lxc-docker
+    sudo apt-get install -y linux-image-extra-$(uname -r)
+    sudo apt-get install -y apparmor
+    sudo apt-get update
+    sudo apt-get install -y docker-engine
+    sudo service docker start
+    sudo usermod -aG docker vagrant
+    sudo sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/g' /etc/default/grub
+    sudo update-grub
+    sudo sed -i 's/DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/g' /etc/default/ufw
+    sudo ufw reload
+    sudo ufw allow 2375/tcp
+    sudo sed -i 's/#DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"/DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.4.4"/g' /etc/default/docker
+    sudo restart docker
+  SHELL
+end
