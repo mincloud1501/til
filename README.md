@@ -29,6 +29,9 @@ Contents
 - [Django CLI 사용방법](django/command_usage.md)
 - [uWSGi와 Nginx를 이용한 Django App 배포 방법](django/deployment.md)
 
+#### Linux
+- [${HOME}/.ssh 디렉토리와 그 디렉토리를 구성하는 파일들의 퍼미션 정보](linux/ssh-file-permissions.md)
+
 #### Linux/Centos
 
 - [firewalld 관리 방법](linux/centos/firwalld.md)
@@ -56,6 +59,7 @@ Contents
 
 - [Hypervisor 개념 및 종류](virtualization/hypervisor.md)
 - [가상화의 종류](virtualization/types_of_virtualization.md)
+
 
 License
 ---
