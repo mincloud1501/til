@@ -16,7 +16,7 @@ Contents
 
 #### AWS
 
-- [EC2 인스턴스의 Timezone 변경하기](ec2-timezone.md)
+- [EC2 인스턴스의 Timezone 변경하기](aws/ec2-timezone.md)
 
 #### Develement Environments
 
@@ -30,7 +30,7 @@ Contents
 - [uWSGi와 Nginx를 이용한 Django App 배포 방법](django/deployment.md)
 
 #### Linux
-- [${HOME}/.ssh 디렉토리와 그 디렉토리를 구성하는 파일들의 퍼미션 정보](linux/ssh-file-permissions.md)
+- [${HOME}/.ssh 디렉토리와 그 디렉토리를 구성하는 파일들의 퍼미션 정보](linux/ssh-file-permission.md)
 
 #### Linux/Centos
 
