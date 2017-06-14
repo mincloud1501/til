@@ -64,15 +64,15 @@ Promise fulfilled
 Example 'using XMLHttpRequest'
 ==============================
 
-### A
-
 ```
 'use strict';
+
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 function $http (url) {
     var core = {
         ajax: function (method, url, args) {
-            var promise = new Promise(function (resolve, reject) {
+            return  new Promise(function (resolve, reject) {
                 var client = new XMLHttpRequest();
                 var uri = url;
 
@@ -81,50 +81,49 @@ function $http (url) {
                     var argcount = 0;
                     for (var key in args) {
                         if (args.hasOwnProperty(key)) {
-                            uri += '&';
+                            if (argcount++) {
+                                uri += '&';
+                            }
+                            uri += encodeURIComponent(key) + '=' + encodeURIComponent(args[key]);
                         }
-                        uri += encodeURIComponent(key) + '=' + encodeURIComponent(args[key]);
                     }
                 }
 
-                client.open(method, url);
+                client.open(method, uri);
                 client.send();
 
                 client.onload = function () {
-                    if (this.status >= 200 && this.status < 300) {
+                    if (200 <= this.status && this.status < 300) {
                         resolve(this.response);
                     } else {
                         reject(this.statusText);
                     }
                 };
+
                 client.onerror = function () {
                     reject(this.statusText);
                 };
+
             });
-            return promise;
-        };
+        }
+    };
 
-        return {
-            'get': function (args) {
-                return core.ajax('GET', url, args);
-            },
-            'post': function (args) {
-                return core.ajax('POST', url, args);
-            },
-            'put': function (args) {
-                return core.ajax('PUT', url, args);
-            },
-            'delete': function (args) {
-                return core.ajax('DELETE', url, args);
-            }
-        };
-    }
+    return {
+        'get': function (args) {
+            return core.ajax('GET', url, args);
+        },
+        'post': function (args) {
+            return core.ajax('POST', url, args);
+        },
+        'put': function (args) {
+            return core.ajax('PUT', url, args);
+        },
+        'delete': function (args) {
+            return core.ajax('DELETE', url, args);
+        }
+    };
 }
-```
 
-### B
-
-```
 var mdnAPI = 'https://developer.mozilla.org/en-US/search.json';
 var payload = {
     'topic': 'js',
@@ -139,29 +138,23 @@ var callback = {
         console.log(2, 'error', JSON.parse(data));
     }
 };
+
+
+$http(mdnAPI)
+    .get(payload)
+    .then(callback.success)
+    .catch(callback.error);
+
 ```
 
-### C
+Debugging in node.js
+====================
+그냥 `node <filename>` 으로 실행하면 Promise안에서 에러가 발생할 경우 `Unhandled promise rejection ...` 어쩌구 하면서 에러 메시지가 찍히는데, 에러 발생하는 부분이 출력되지 않아서 tracing이 안된다. 아래와 같이 node 실행 시 `--trace-warnings` option을 주면 에러가 발생한 부분의 stack trace가 출력된다.
 
-```
-// 메서드 호출
-$http(mdnAPI)
-  .get(payload)
-  .then(callback.success)
-  .catch(callback.error);
+`$ node --trace-warnings <filename>`
 
-// 메서드 호출을 실행하지만, 거부 경우를 다루는 다른 방법(1)
-$http(mdnAPI)
-  .get(payload)
-  .then(callback.success, callback.error);
-
-// 메서드 호출을 실행하지만, 거부 경우를 다루는 다른 방법(2)
-$http(mdnAPI)
-  .get(payload)
-  .then(callback.success)
-  .then(undefined, callback.error);
-```
 
 References
 ==========
 * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise
+* https://stackoverflow.com/questions/20990955/how-do-i-debug-promise-based-code-in-node
