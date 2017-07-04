@@ -12,13 +12,14 @@ race condition으로 인해 lock을 걸지 않으면 count property는 정확한
 ### auto increment가 없다
 
 > [stack overflow:auto increment a value in firebase with javascript][1]
+
 보통 RDBMS에서 auto increment로 PK용 Unique ID를 생성하는 경우가 많은데, Firebase에는 그런 기능이 없다.
 대신 push-id라는 unique-id를 사용한다.
 
 
 ### array를 사용하지 않는다
 
-> [stack overflow:Best practice arrays in firebase][2]
+> [firebase blog: Best practice arrays in firebase][2]
 
 기본적으로 Array는 없다. 모든 것이 object 형태로 변환된다.
 * array는 분산환경에서 많은 문제를 야기시킨다고 설명하고 있다. 그 이유는 array는 각 원소에 index로 접근하는 데 여러 사용자가 동시에 접근하고, 그에 대한 변경이 발생할 경우 element의 index는 수시로 변경되기 때문이다.
